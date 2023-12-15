@@ -10,18 +10,21 @@ public class Driver_Utils {
 	
 	public static WebDriver driver;
 	
-	public Driver_Utils()
-	{
-		driver=driverSetUp();
-	}
+
 	
 	public static WebDriver driverSetUp()
 	{
 		WebDriverManager.chromedriver().setup();
+		//String proxy="localhost";
+		//int proxyPort=8080;
 		ChromeOptions options= new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
+		 
+	    //options.addArguments("--proxy-server=" + proxy + ":" + proxyPort);
 		driver=new ChromeDriver(options);
 		driver.get("https://www.tarladalal.com/");
+		driver.manage().window().maximize();
+		//driver
 		return driver;
 		
 	}
