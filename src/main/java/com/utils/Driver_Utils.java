@@ -1,5 +1,7 @@
 package com.utils;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -22,6 +24,7 @@ public class Driver_Utils {
 		options.addArguments("--remote-allow-origins=*");
 		driver=new ChromeDriver(options);
 		driver.get("https://www.tarladalal.com/");
+		//driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		return driver;
 		
 	}
