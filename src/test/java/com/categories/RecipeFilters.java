@@ -55,7 +55,7 @@ public class RecipeFilters extends Driver_Utils {
 	    public static void writeToExcel(List<GetAndSetData> recipes) {
 	    	
 	    	
-	        String filePath = "C:\\Users\\harii\\eclipse-workspace\\ScrapingRecipes\\target\\recipeCrawlers.xlsx"; // Specify the path to your Excel file
+	    	String filePath = System. getProperty("user.dir")+"/src/test/resources/ExcelData/Team5_RecipeCrawlers.xlsx"; // Specify the path to your Excel file
 	        try (Workbook workbook = new XSSFWorkbook()) {
 	            Sheet sheet = workbook.createSheet("RecipeDetails");
 

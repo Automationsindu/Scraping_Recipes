@@ -5,7 +5,7 @@
 	  <classes>
             <class name="com.utils.Driver_Utils"/>
             <class name="com.categories.Diabetes_Scraping"/> 
-            <class name="com.categories.Hypothroidism_scraping"/> 
+            <class name="com.categories.Hypothyroidism_scraping"/> 
            <class name="com.categories.PCOS_Scraping"/> 
             <class name="com.categories.HyperTension_Scraping"/>
             <class name="com.categories.Allergy"/>

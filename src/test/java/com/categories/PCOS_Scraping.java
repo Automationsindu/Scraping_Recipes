@@ -83,7 +83,7 @@ return null;
 
 public static void writeToExcel(List<GetAndSetData> recipes) {
 
-String filePath = System. getProperty("user.dir")+"\\target\\recipeCrawlers.xlsx";
+	String filePath = System. getProperty("user.dir")+"/src/test/resources/ExcelData/Team5_RecipeCrawlers.xlsx";
 
 try (Workbook workbook = new XSSFWorkbook()) {
 

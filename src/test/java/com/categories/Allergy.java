@@ -46,7 +46,7 @@ public class Allergy extends Driver_Utils {
 	 public static void writeToExcel(List<GetAndSetData> recipes) {
 	    	
 	    	
-		 	String filePath = System. getProperty("user.dir")+"/src/test/resources/ExcelData/AllergyData.xlsx";
+		 	String filePath = System. getProperty("user.dir")+"/src/test/resources/ExcelData/Allergy.xlsx";
 	        try (Workbook workbook = new XSSFWorkbook()) {
 	            Sheet sheet = workbook.createSheet("AllergyFreeRecipes");
 

@@ -52,7 +52,7 @@ public class Hypothyroidism_scraping extends Driver_Utils {
 	 public static void writeToExcel(List<GetAndSetData> recipes) {
 	    	
 	    	
-	        String filePath = "C:\\Users\\harii\\eclipse-workspace\\ScrapingRecipes\\src\\test\\resources\\ExcelData\\Team5_RecipeCrawlers.xlsx//"; 
+		 String filePath = System. getProperty("user.dir")+"/src/test/resources/ExcelData/Team5_RecipeCrawlers.xlsx";
 	        try (Workbook workbook = new XSSFWorkbook()) {
 	            Sheet sheet = workbook.createSheet("Hypothyroidism");
 
