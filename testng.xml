@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test thread-count="5" name="Test">
+	  <classes>
+            <class name="com.utils.Driver_Utils"/>
+            <class name="com.categories.Diabetes_Scraping"/> 
+            <class name="com.categories.Hypothroidism_scraping"/> 
+           <class name="com.categories.PCOS_Scraping"/> 
+            <class name="com.categories.HyperTension_Scraping"/>
+            <class name="com.categories.Allergy"/>
+        </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

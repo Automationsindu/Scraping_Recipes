@@ -13,7 +13,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
 
 import com.pojo.GetAndSetData;
 import com.utils.Driver_Utils;
@@ -28,9 +27,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class HyperTension_Scraping extends Driver_Utils {
+public class Hypothyroidism_scraping extends Driver_Utils {
 	
-	public static int counter=1;
+	public static int counter=22;
 	public static List<String> eliminationList;
 	static int recipeCountWithoutElimination = 0;
 	public static List<GetAndSetData> recipes;
@@ -39,8 +38,12 @@ public class HyperTension_Scraping extends Driver_Utils {
 	public static List<String> getEliminationList()
 	{
 				eliminationList = Arrays.asList(
-						"Salty food","snacks","chips","pretzels","crackers", "Caffeine","coffee","tea","soft drinks", "Alcohol","Frozen food", "bacon","ham",
-						  "Pickles","Processed/canned food","Fried food","Sauces", "mayonnaise","sausages","deli meats","White rice","basmati rice","white bread");
+                "Tofu", "Edamame", "Tempeh", "Cauliflower", "Cabbage", "Broccoli", "Kale", "Spinach",
+                "Sweet potatoes", "Strawberries", "Pine nuts", "Peanuts", "Peaches", "Green tea",
+                "Coffee", "Alcohol", "Soy milk", "White bread", "Cakes", "Pastries", "Fried food",
+                "Sugar", "Processed food", "Ham", "Bacon", "Salami", "Sausages", "Frozen food",
+                "Gluten", "Sodas", "Energy drinks containing caffeine", "Packaged food", "Noodles",
+                "Soups", "Salad dressings", "Sauces", "Candies");
 		
 		return null;
 		
@@ -49,9 +52,9 @@ public class HyperTension_Scraping extends Driver_Utils {
 	 public static void writeToExcel(List<GetAndSetData> recipes) {
 	    	
 	    	
-		 	String filePath = System. getProperty("user.dir")+"/src/test/resources/ExcelData/RecipeCrawlers.xlsx";
+	        String filePath = "C:\\Users\\harii\\eclipse-workspace\\ScrapingRecipes\\src\\test\\resources\\ExcelData\\Team5_RecipeCrawlers.xlsx//"; 
 	        try (Workbook workbook = new XSSFWorkbook()) {
-	            Sheet sheet = workbook.createSheet("Hypertension");
+	            Sheet sheet = workbook.createSheet("Hypothyroidism");
 
 	            // Create the header row
 	            Row headerRow = sheet.createRow(0);
@@ -96,19 +99,19 @@ public class HyperTension_Scraping extends Driver_Utils {
 	        }
 	    }
 
-	 @Test
-	public static void hypertensionrecipes() throws InterruptedException {
+
+	public static void main(String[] args) throws InterruptedException {
 		
 		driverSetUp();
 		recipes=new ArrayList<>();
 		List<String> recNames=new ArrayList<>();
-		String url="https://tarladalal.com/recipes-for-high-blood-pressure-644";
+		String url="https://www.tarladalal.com/recipes-for-hypothyroidism-veg-diet-indian-recipes-849";
 		driver.findElement(By.xpath("//div[text()='RECIPES']")).click();
-		WebElement hypoThyroidClick= driver.findElement(By.xpath("//div[@id='ctl00_cntleftpanel_ttlhealthtree_tvTtlHealth']//a[contains(@href, 'recipes-for-high-blood-pressure-644')]"));
+		WebElement hypoThyroidClick= driver.findElement(By.xpath("//a[contains(@href, 'recipes-for-hypothyroidism-veg-diet-indian-recipes-849')]"));
 		hypoThyroidClick.click();
 		List<WebElement> NoOfPages = driver.findElements(By.xpath("//div[@id='pagination']//a"));
 		int TotalPages = NoOfPages.size();
-		try {
+		
 		WebElement lastPageNoString = driver.findElement(By.xpath("//div[@id='pagination']//a["+TotalPages+"]"));
 		int lastPageNo = Integer.parseInt(lastPageNoString.getText());
 		System.out.println("The size of pagination is :"+lastPageNo);
@@ -128,7 +131,7 @@ public class HyperTension_Scraping extends Driver_Utils {
 			
 			for (int i=counter; i<=receipeListCount; i++)
 			{	
-				
+				try {
 				GetAndSetData pojoObj=new GetAndSetData();
 	//Recipe Name			
 				WebElement receipeName = driver.findElement(By.xpath("//div[@class='recipelist']//article["+i+"]/div[@class='rcc_rcpcore']/span/a"));
@@ -189,10 +192,10 @@ public class HyperTension_Scraping extends Driver_Utils {
 			        }
 	*/
 				    
-  
+
 
 		            receipeName.click();
- //Get Current url for each recipe
+   //Get Current url for each recipe
 				    
 				    pojoObj.setRurl(driver.getCurrentUrl());
 		            
@@ -354,7 +357,12 @@ public class HyperTension_Scraping extends Driver_Utils {
 			        
 			        }
 			        System.out.println("Before navigating the url is "+driver.getCurrentUrl());
-			      
+			        }
+				
+				catch(Exception e )
+				{
+					System.out.println("Error in Page:" +j+"Article:"+i);	
+				}
 			        System.out.println("The size of recipe is "+recipes.size());
 			        } 
 		
@@ -362,10 +370,7 @@ public class HyperTension_Scraping extends Driver_Utils {
 		
 		writeToExcel(recipes);
 		}
-		}catch(Exception e)	{
-			System.out.println("Locator not found,go to next recipe");
-			//driver.quit();
-		}
+		 
 						//driver.quit();
 						//driver.close();
 
@@ -373,4 +378,4 @@ public class HyperTension_Scraping extends Driver_Utils {
 
 	}
 		
-	}	
+	}
