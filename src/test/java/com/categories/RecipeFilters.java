@@ -13,7 +13,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
 
 import com.pojo.GetAndSetData;
 import com.utils.Driver_Utils;
@@ -28,30 +27,37 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class HyperTension_Scraping extends Driver_Utils {
+public class RecipeFilters extends Driver_Utils {
+	
 	
 	public static int counter=1;
 	public static List<String> eliminationList;
 	static int recipeCountWithoutElimination = 0;
 	public static List<GetAndSetData> recipes;
-	//public static String nutriString;
+	public static String nutriString;
 	
 	public static List<String> getEliminationList()
 	{
 				eliminationList = Arrays.asList(
-						"Salty food","snacks","chips","pretzels","crackers", "Caffeine","coffee","tea","soft drinks", "Alcohol","Frozen food", "bacon","ham",
-						  "Pickles","Processed/canned food","Fried food","Sauces", "mayonnaise","sausages","deli meats","White rice","basmati rice","white bread");
+                "Tofu", "Edamame", "Tempeh", "Cauliflower", "Cabbage", "Broccoli", "Kale", "Spinach",
+                "Sweet potatoes", "Strawberries", "Pine nuts", "Peanuts", "Peaches", "Green tea",
+                "Coffee", "Alcohol", "Soy milk", "White bread", "Cakes", "Pastries", "Fried food",
+                "Sugar", "Processed food", "Ham", "Bacon", "Salami", "Sausages", "Frozen food",
+                "Gluten", "Sodas", "Energy drinks containing caffeine", "Packaged food", "Noodles",
+                "Soups", "Salad dressings", "Sauces", "Candies");
 		
 		return null;
 		
 	}
 	
-	 public static void writeToExcel(List<GetAndSetData> recipes) {
+	
+
+	    public static void writeToExcel(List<GetAndSetData> recipes) {
 	    	
 	    	
-		 	String filePath = System. getProperty("user.dir")+"/src/test/resources/ExcelData/Team5_RecipeCrawlers.xlsx";
+	    	String filePath = System. getProperty("user.dir")+"/src/test/resources/ExcelData/Team5_RecipeCrawlers.xlsx"; // Specify the path to your Excel file
 	        try (Workbook workbook = new XSSFWorkbook()) {
-	            Sheet sheet = workbook.createSheet("Hypertension");
+	            Sheet sheet = workbook.createSheet("RecipeDetails");
 
 	            // Create the header row
 	            Row headerRow = sheet.createRow(0);
@@ -79,7 +85,7 @@ public class HyperTension_Scraping extends Driver_Utils {
 	                row.createCell(4).setCellValue(pojoData.getPreptime());
 	                row.createCell(5).setCellValue(pojoData.getCooktime());
 	                row.createCell(6).setCellValue(String.join(", ",pojoData.getPrepMethod()));
-	                row.createCell(7).setCellValue(String.join(", ",pojoData.getNutriString()));
+	                row.createCell(7).setCellValue(nutriString);
 	                
 	                row.createCell(8).setCellValue(String.join(", ", pojoData.getMorbid()));
 	                row.createCell(9).setCellValue(pojoData.getRurl());
@@ -96,25 +102,75 @@ public class HyperTension_Scraping extends Driver_Utils {
 	        }
 	    }
 
-	 @Test
-	public static void hypertensionrecipes() throws InterruptedException {
-		
+	
+	public static void main(String[] args) throws InterruptedException {
 		driverSetUp();
-		recipes=new ArrayList<>();
-		List<String> recNames=new ArrayList<>();
-		String url="https://tarladalal.com/recipes-for-high-blood-pressure-644";
+		//List<GetAndSetData> recipes=new ArrayList<>();
 		driver.findElement(By.xpath("//div[text()='RECIPES']")).click();
-		WebElement hypoThyroidClick= driver.findElement(By.xpath("//div[@id='ctl00_cntleftpanel_ttlhealthtree_tvTtlHealth']//a[contains(@href, 'recipes-for-high-blood-pressure-644')]"));
-		hypoThyroidClick.click();
+		
+		try {
+		
+		String myUrl="https://www.tarladalal.com/recipes-for-hypothyroidism-veg-diet-indian-recipes-849";
+		String Hypourl="https://www.tarladalal.com/recipes-for-hypothyroidism-veg-diet-indian-recipes-849";
+		String pcosUrl="https://www.tarladalal.com/recipes-for-polycystic-ovary-syndrome-pcos-645";
+		String bpUrl="https://www.tarladalal.com/recipes-for-high-blood-pressure-644";
+		String diabUrl="https://www.tarladalal.com/recipes-for-indian-diabetic-recipes-370";
+		
+		if(myUrl.equals(Hypourl))
+		{
+		
+			System.out.println("myUrl is:"+Hypourl);
+			driver.get(myUrl);
+			completeRecipe();
+		}
+		else if(myUrl.equals(pcosUrl))
+		{
+			System.out.println("myUrl is:"+pcosUrl);
+			driver.get(myUrl);
+			completeRecipe();
+		}
+		
+		else if(myUrl.equals(bpUrl))
+		{
+			System.out.println("myUrl is:"+bpUrl);
+			driver.get(myUrl);
+			completeRecipe();
+		}
+		else if(myUrl.equals(diabUrl))
+		{
+			System.out.println("myUrl is:"+diabUrl);
+			driver.get(myUrl);
+			completeRecipe();
+		}
+		}catch(Exception e) {
+	
+			System.out.println("No more recipes found, moving to write excel");
+		}
+		
+		writeToExcel(recipes);
+	}
+		
+			
+		//driver.
+		//WebElement hypoThyroidClick= driver.findElement(By.xpath("//a[contains(@href, 'recipes-for-hypothyroidism-veg-diet-indian-recipes-849')]"));
+		//hypoThyroidClick.click();
+		//========================================================================================
+		
+		
+		public static void completeRecipe() throws InterruptedException
+		{
+			
+			 recipes=new ArrayList<>();
+			 List<String> recNames=new ArrayList<>();
+			 
 		List<WebElement> NoOfPages = driver.findElements(By.xpath("//div[@id='pagination']//a"));
 		int TotalPages = NoOfPages.size();
-		try {
+		
 		WebElement lastPageNoString = driver.findElement(By.xpath("//div[@id='pagination']//a["+TotalPages+"]"));
 		int lastPageNo = Integer.parseInt(lastPageNoString.getText());
 		System.out.println("The size of pagination is :"+lastPageNo);
 		WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
-		
-		for (int j=1;j<=lastPageNo;j++)
+		for (int j=3;j<=lastPageNo;j++)
 		{
 			
 			
@@ -128,7 +184,6 @@ public class HyperTension_Scraping extends Driver_Utils {
 			
 			for (int i=counter; i<=receipeListCount; i++)
 			{	
-				
 				GetAndSetData pojoObj=new GetAndSetData();
 	//Recipe Name			
 				WebElement receipeName = driver.findElement(By.xpath("//div[@class='recipelist']//article["+i+"]/div[@class='rcc_rcpcore']/span/a"));
@@ -189,12 +244,11 @@ public class HyperTension_Scraping extends Driver_Utils {
 			        }
 	*/
 				    
-  
-
-		            receipeName.click();
- //Get Current url for each recipe
+   //Get Current url for each recipe
 				    
 				    pojoObj.setRurl(driver.getCurrentUrl());
+
+		            receipeName.click();
 		            
   //Cooking and Preparation time 
 				    
@@ -321,11 +375,16 @@ public class HyperTension_Scraping extends Driver_Utils {
 			        	System.out.println();
 			        	HashMap<String, String> nutriMap = pojoObj.getNutri();
 			        	// Converting  HashMap to a string
-			        	String nutriString = nutriMap.entrySet().stream()
+			        	nutriString = nutriMap.entrySet().stream()
 			        	        .map(entry -> entry.getKey() + ": " + entry.getValue())
-			        	        .collect(Collectors.joining("\n"));
+			        	        .collect(Collectors.joining("\n "));
 			        	System.out.println("The nutrients for this recipe are:"+nutriString);
-			        	pojoObj.setNutriString(nutriString);
+			        	/*String[] nutrStringArray=nutriString.split(",");
+			        	
+			        	for(String nuteachLine:nutrStringArray)
+			        	{
+			        		 System.out.println(nuteachLine);
+			        	}*/
 			        	
 			        	
 			        	
@@ -354,23 +413,33 @@ public class HyperTension_Scraping extends Driver_Utils {
 			        
 			        }
 			        System.out.println("Before navigating the url is "+driver.getCurrentUrl());
-			      
+			        }
 			        System.out.println("The size of recipe is "+recipes.size());
 			        } 
-		
-		
-		
-		writeToExcel(recipes);
 		}
-		}catch(Exception e)	{
-			System.out.println("Locator not found,go to next recipe");
-			//driver.quit();
-		}
+		// writeToExcel(recipes);
 						//driver.quit();
-						//driver.close();
+		}						//driver.close();
 
-
-
-	}
 		
-	}	
+
+
+
+//==============================Other Tested codes but didnot work as expected ===========================================
+
+//Morbid condition from img
+
+/*	WebElement morbidImg=driver.findElement(By.xpath("//div[@class='rcc_caticons']/img"));
+    String morbid=morbidImg.getAttribute("src");
+    List<String> morbidConditions = Arrays.asList("diabetic", "low-cholesterol", "pcos");
+    for (String morbidCondition : morbidConditions) {
+    	 if (morbid.contains(morbidCondition)) {
+    		 System.out.println("The recipe can be added to other morbid condition "+morbidCondition);  }
+    }*/
+
+ // Remove trailing separator
+    
+
+    //System.out.println("Concatenated Src values for RecipeId " + finalRecipeId + ": " + concatenatedSrc);
+
+    // Check if any of the src values match morbid conditions

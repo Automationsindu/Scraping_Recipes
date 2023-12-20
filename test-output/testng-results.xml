@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2023-12-19T10:42:16 PST" name="Default suite" finished-at="2023-12-19T12:22:17 PST" duration-ms="6001625">
+    <groups>
+    </groups>
+    <test started-at="2023-12-19T10:42:16 PST" name="Default test" finished-at="2023-12-19T12:22:17 PST" duration-ms="6001625">
+      <class name="com.categories.Allergy">
+        <test-method signature="allergiesdata()[pri:0, instance:com.categories.Allergy@4f209819]" started-at="2023-12-19T10:42:16 PST" name="allergiesdata" finished-at="2023-12-19T12:22:17 PST" duration-ms="6001526" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- allergiesdata -->
+      </class> <!-- com.categories.Allergy -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
